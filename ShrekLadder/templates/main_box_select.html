@@ -1,0 +1,21 @@
+﻿<link href="/static/main_box.css" rel="stylesheet">
+<div class="col-sm-1 shadow-z-2 " style="background-image: url('{{ main.portrait_url }}'); width: 135px; height: 105px; margin-right: 4px;margin-top: 5px">
+        {% if user.has_main(main) %}
+    <form role="form" action="/main/remove" method="POST">
+        <input type="hidden" value="{{main.name}}" id="main-name" name="main-name">
+        <button type="submit" class="btn btn-danger main-button"><span class="glyphicon glyphicon-remove"></span></button>
+
+    </form>
+        {% else %}
+    <form role="form" action="/main/add" method="POST">
+        <input type="hidden" value="{{main.name}}" id="main-name" name="main-name">
+        <button type="submit" class="btn btn-primary main-button"><span class="glyphicon glyphicon-ok"></span></button>
+
+    </form>
+        {% endif %}
+        <div style="background: rgba(0, 0, 0, 0.4); color: white; position: absolute; z-index: 9999; bottom: 0; height: 30px; left: 0; right: 0; text-align: center; padding: 5px;">
+            <div>{{main.name}}</div>
+
+    </div>
+
+</div>

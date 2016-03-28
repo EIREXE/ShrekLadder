@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{fb959a10-90a0-425b-9220-298190e48506}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>app.py</StartupFile>
+    <SearchPath>.</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <InterpreterId>{0ad976d0-0cac-4a5f-a76b-1d4bb7cf3666}</InterpreterId>
+    <InterpreterVersion>3.4</InterpreterVersion>
+    <PythonWsgiHandler>{StartupModule}.app</PythonWsgiHandler>
+    <UseIISExpress>true</UseIISExpress>
+    <WebBrowserUrl>
+    </WebBrowserUrl>
+    <WebBrowserPort>8080</WebBrowserPort>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitignore">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="coffee\notifications.coffee">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="coffee\notifications.manifest_inline">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="requirements.txt" />
+    <Content Include="config.ini" />
+    <Content Include="ShrekLadder\templates\add_match.html" />
+    <Content Include="ShrekLadder\templates\admin_news_article.html" />
+    <Content Include="ShrekLadder\templates\ladder.html" />
+    <Content Include="ShrekLadder\templates\main_box_user.html" />
+    <Content Include="ShrekLadder\templates\moderate_proofs.html" />
+    <Content Include="ShrekLadder\templates\notifications.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="ShrekLadder\templates\provide_proof.html" />
+    <Content Include="ShrekLadder\templates\review_match.html" />
+    <Content Include="ShrekLadder\templates\test.html" />
+    <Content Include="ShrekLadder\templates\admin.html" />
+    <Content Include="ShrekLadder\templates\edit_profile.html" />
+    <Content Include="ShrekLadder\templates\index.html" />
+    <Content Include="ShrekLadder\templates\layout.html" />
+    <Content Include="ShrekLadder\templates\login.html" />
+    <Content Include="ShrekLadder\templates\main_box_select.html" />
+    <Content Include="ShrekLadder\templates\main_box.html" />
+    <Content Include="ShrekLadder\templates\profile_add_mains.html" />
+    <Content Include="ShrekLadder\templates\profile.html" />
+    <Content Include="ShrekLadder\templates\register.html" />
+    <Content Include="static\bootstrap.min.css" />
+    <Content Include="static\layout.css" />
+    <Content Include="static\logo.png" />
+    <Content Include="static\scripts\bootstrap-notify.js" />
+    <Content Include="static\scripts\edit_profile.js" />
+    <Content Include="styles\layout.scss" />
+    <Content Include="styles\main_box.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="app.py" />
+    <Compile Include="ShrekLadder\app.py" />
+    <Compile Include="ShrekLadder\blueprints\accounts.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\admin.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\api.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\ladder.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\match.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\notifications.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\profile.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\blueprints\public.py" />
+    <Compile Include="ShrekLadder\blueprints\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\config_file.py" />
+    <Compile Include="ShrekLadder\database.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\decorators.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\kerbdown.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShrekLadder\objects.py" />
+    <Compile Include="ShrekLadder\__init__.py %28ShrekLadder%29" />
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="coffee\" />
+    <Folder Include="ShrekLadder" />
+    <Folder Include="ShrekLadder\blueprints\" />
+    <Folder Include="ShrekLadder\templates\" />
+    <Folder Include="static\" />
+    <Folder Include="static\scripts\" />
+    <Folder Include="styles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>{0ad976d0-0cac-4a5f-a76b-1d4bb7cf3666}</Id>
+      <BaseInterpreter>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</BaseInterpreter>
+      <Version>3.4</Version>
+      <Description>env (Python 3.4)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X86</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:63501/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,42 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+{% if match_to_review.winner != user %}
+{% set result = "Lost" %}
+{% else %}
+{% set result = "Won" %}
+{% endif %}
+<div class="container">
+    <h1>Review your match against {{match_to_review.creator.username}} in {{match_to_review.tournament}}</h1>
+
+    <h2>{{match_to_review.creator.username}} said that you {{result}}</h2>
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Your character:</p>
+            {% set main = match_to_review.get_other_character() %}
+            {% include "main_box.html" %}
+        </div>
+        <div class="col-sm-2">
+            <p>His/her character:</p>
+            {% set main = match_to_review.get_creator_character() %}
+            {% include "main_box.html" %}
+        </div>
+    </div>
+    <div class="row">
+        <h2>Is this correct?</h2>
+        <div class="col-sm-1">
+            <form role="form" action="/match/review_ok/{{match_to_review.id}}" method="POST">
+                <button type="submit" class="btn btn-primary">Yes</button>
+            </form>
+        </div>
+
+        <div class="col-sm-1">
+            <form role="form" action="/match/review_not_ok/{{match_to_review.id}}" method="POST">
+                <button type="submit" class="btn btn-danger">No</button>
+            </form>
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock %}

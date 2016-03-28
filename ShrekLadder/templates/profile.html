@@ -1,0 +1,88 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#info" data-toggle="tab">Information</a>
+        </li>
+        <li>
+            <a href="#matches" data-toggle="tab">Matches</a>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="info">
+            <h1>{{profile_user.username}}'s profile</h1>
+			{% if profile_user.description %}
+			<p>{{profile_user.description | markdown}}</p>
+			{% endif %}
+            {% for game in games %}
+            <h2>MMR: {{profile_user.rating_mu}}</h2>
+            <h2>{{profile_user.username}}'s mains for {{game.name}}</h2>
+
+            {% for main in profile_user.mains %}
+            {% if main.game == game %}
+            {% include "main_box.html" %}
+            {% endif %}
+            {% endfor %}
+
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="matches">
+            {% for game in games %}
+            <h1>{{game.name}}</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Won: {{profile_user.get_won_matches(game)}}</h2>
+                </div>
+                <div class="col-md-4">
+                    <h2>Lost: {{profile_user.get_lost_matches(game)}}</h2>
+                </div>
+                <div class="col-md-4">
+                    <h2>
+                        {% if not profile_user.get_won_matches(game) == 0 or not profile_user.get_lost_matches(game) == 0 %}
+                        Win%:{{(profile_user.get_won_matches(game) / (profile_user.get_lost_matches(game) + profile_user.get_won_matches(game)))*100}}%
+                        {% else %}
+                        Win%:0%
+                        {% endif %}
+                    </h2>
+                </div>
+                <table class="table table-striped table-hover shadow-z-2">
+                    <thead>
+                        <tr>
+                            <th>Player 1</th>
+                            <th>Player 2</th>
+                            <th>Tournament</th>
+                            <th>Date</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if profile_user.get_matches(game) != None %}
+                    {% for match in profile_user.get_matches(game) %}
+
+                    <tr>
+                        {% set main = match.get_character(user)%}
+                        {% set box_user = user %}
+                        <td>{% include "main_box_user.html" %}</td>
+                        {% set main = match.get_character(match.get_different_player(user))%}
+                        {% set box_user = match.get_different_player(user) %}
+                        <td>{% include "main_box_user.html" %}</td>
+                        <td>{{match.tournament}}</td>
+                        <th>{{match.created.strftime("%a, %d %b %Y %H:%M:%S %z") }}</th>
+                        {% if match.user_won(user) %}
+                        <td>Won</td>
+                        {% else %}
+                        <td>Lost</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

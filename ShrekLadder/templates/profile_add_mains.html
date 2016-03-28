@@ -1,0 +1,12 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <h1>Edit Mains</h1>
+    {% for game in games %}
+    <h2>{{game.name}}</h2>
+    {% for main in mains %}
+    {% include "main_box_select.html" %}
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

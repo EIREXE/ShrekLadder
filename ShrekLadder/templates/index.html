@@ -1,0 +1,10 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <h1>Welcome to {{site_name}}!</h1>
+    <h3>{{site_name}} is the premier ladder for Shrek Super Slam</h3>
+    <h4>Here users can add their own matches against other players in tournament, and then their rank is calculated based on <a href="http://research.microsoft.com/en-us/projects/trueskill/">Microsoft's TrueSkill</a></h4>
+    {% if not user %}<h4>You can register <a href="/register">here.</a></h4>{% endif %}
+    <h4>The ladder can be found <a href="/ladder">here.</a></h4>
+</div>
+{% endblock %}

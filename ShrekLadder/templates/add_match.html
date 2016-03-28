@@ -1,0 +1,53 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <h1>Add Match</h1>
+    <ul class="nav nav-tabs">
+        <li class="active" ><a href="#{{games[0].id}}" data-toggle="tab">{{games[0].name}}</a></liclass="active">
+        {% for game in games %}
+        {% if not game.id == 1 %}
+        <li class="divider"></li>
+        <li><a href="#{{game.id}}" data-toggle="tab">{{game.name}}</a></li>
+        {% endif %}
+        {% endfor %}
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+
+        {% for game in games %}
+        {% if game.id == 1 %}
+            <div class="tab-pane fade active in" id="{{game.id}}">
+        {% else %}
+            <div class="tab-pane fade" id="{{game.id}}">
+        {% endif %}
+                <h2>{{game.name}}</h2>
+                {% set mains = game.get_mains() %}
+                <h3>Your character</h3>
+                <form role="form" action="/match/add" method="POST">
+                    <select name="current-character" id="current-character" class="form-control">
+                        {% for main in mains %}
+                        <option value="{{main.name}}">{{main.name}}</option>
+                        {% endfor %}
+                    </select>
+                <h3>Their Character</h3>
+                    <select name="other-character" id="other-character" class="form-control">
+                        {% for main in mains %}
+                        <option value="{{main.name}}">{{main.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="won" name="won"> Did you win?
+                        </label>
+                    </div>
+
+                    <input class="form-control" id="other-user" name="other-user" type="text" placeholder="Other user name">
+                    <br />
+                    <input class="form-control" id="tournament" name="tournament" type="text" placeholder="Tournament name">
+                    <br />
+                    <button type="submit" class="btn btn-primary">Add Match</button>
+                </form>
+                {% endfor %}
+            </div>
+                </div>
+        {% endblock %}

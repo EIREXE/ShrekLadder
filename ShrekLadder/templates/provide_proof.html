@@ -1,0 +1,11 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <p>Provide challonge links, stream VODs etc...</p>
+    <form role="form" action="/match/provide_proof/{{match_to_review.id}}" method="POST">
+        <textarea class="form-control" rows="3" id="proof" name="proof"></textarea>
+    <br/>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

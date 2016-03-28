@@ -1,0 +1,52 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    {% for game in games %}
+    <h1>{{game.name}}</h1>
+    <table class="table table-striped table-hover shadow-z-2">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th>Most Used Character</th>
+            <th>Won Matches</th>
+            <th>Lost Matches</th>
+            <th>MMR</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set player_index = 0 %}
+        {% for luser in users %}
+        {% if luser.get_won_matches(game) != 0 or luser.get_lost_matches(game) != 0 %}
+        {% set player_index = player_index + 1 %}
+        <tr>
+            <td>
+                {{player_index}}
+            </td>
+            <td>
+                <a href="/profile/{{luser.username}}">{{luser.username}}</a>
+            </td>
+            <td>
+                {% set main, main_count = luser.get_most_used_character(game) %}
+                {% set box_user = user %}
+                {% set most_used_character = True %}
+                {% include "main_box.html" %}
+            </td>
+            <td>
+                {{luser.get_won_matches(game)}}
+            </td>
+            <td>
+                {{luser.get_lost_matches(game)}}
+            </td>
+            <td>
+                {{luser.rating_mu}}
+            </td>
+        </tr>
+
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endblock %}

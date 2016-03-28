@@ -1,0 +1,12 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <form role="form" action="/profile/edit" method="POST">
+        <div class="container" style="margin-top: 10px;">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+            <textarea class="form-control input-block-level" name="content" id="content" rows=25></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+{% endblock %}

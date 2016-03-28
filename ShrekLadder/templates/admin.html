@@ -1,0 +1,45 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <p>Currently aware of these games:</p>
+    <div class="row">
+        {% for g in games %}
+        <div class="col-md-2">
+            {{ g.name }}
+        </div>
+        {% endfor %}
+    </div>
+    <form role="form" action="/games/create" method="POST">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" id="game_name" name="game_name" class="form-control input-block-level" placeholder="Game Name...">
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary btn-block" value="Add Game">
+            </div>
+        </div>
+    </form>
+    <form role="form" action="/main/create" method="POST">
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-2 form-group">
+                <input type="text" id="main-name" name="main-name" class="form-control input-block-level" placeholder="Main Name...">
+
+            </div>
+            <div class="col-md-4 form-group">
+                <input type="text" id="main-url" name="main-url" class="form-control input-block-level" placeholder="Main Image URL...">
+            </div>
+
+            <div class="col-md-2 form-group">
+                <select id="main-game-name" name="main-game-name" class="form-control">
+                    {% for g in games %}
+                    <option value="{{g.name}}">{{g.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary btn-block" value="Add Main">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% block title %}
+    <title>{{site_name}}</title>
+	{% endblock %}
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/roboto.min.css" rel="stylesheet">
+    <link href="/static/material-fullpalette.min.css" rel="stylesheet">
+    <link href="/static/ripples.min.css" rel="stylesheet">
+    <link href="/static/layout.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css" rel="stylesheet">
+    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylusheet">
+	{% block styles %}{% endblock %}
+</head>
+
+<body>
+{% block nav %}
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">{{ site_name }}</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+			    <ul class="nav navbar-nav navbar-right">
+			        {% if not user %}
+			        <li class="dropdown">
+			            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Log In <span class="caret"></span></a>
+			            <ul class="dropdown-menu" style="padding-top: 15px; padding-right: 20px; padding-left: 20px;padding-bottom:0px">
+			                <form role="form" action="/login" method="POST">
+			                    <div class="form-control-wrapper">
+			                        <input type="text" id="username" name="username" class="form-control empty">
+			                        <div class="floating-label">Username</div>
+			                    </div>
+                                <br/>
+                                <div class="form-control-wrapper">
+                                    <input type="password" id="password" name="password" class="form-control empty">
+                                    <div class="floating-label">Password</div>
+                                </div>
+                                    <div style="display: block" class="checkbox">
+                                        <label style="color:#009688">
+                                            <input type="checkbox" name="remember-me" id="remember-me">
+                                            Remember Me
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="return_to" value="{{ request.path }}">
+                                    <input type="submit" value="Log In" class="btn btn-primary">
+</form>
+			            </ul>
+			        </li>
+			        {% else %}
+                    <link href="/static/main_box.css" rel="stylesheet">
+			        <li class="dropdown">
+
+			            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Notifications ({{user.get_number_of_notifications(True)}}) <span class="caret"></span></a>
+			        {% set notifications = user.get_notifications(True) %}
+                        <ul class="dropdown-menu" style="width: auto; max-width: 5000px">
+                            {% if notifications != None %}
+
+                            <div class="row">
+                                
+                            </div>
+                            <div class="list-group center-block">
+                                {% for notification in user.get_notifications(True) %}
+                                <a href="{{notification.link}}" class="list-group-item" style="width: auto; max-width: 500px">
+                                    <div class="row-content" style="width: auto; max-width: 500px">
+                                        <div class="least-content">{{notification.get_time_humanized()}}</div>
+                                        <h4 class="list-group-item-heading">Notification</h4>
+                                        <p class="list-group-item-text">{{notification.message}}</p>
+
+                                    </div>
+                                    <form method="POST" action="/notifications/dismiss/{{notification.id}}?return_to={{ request.path }}">
+                                        <button type="submit" class="btn btn-danger main-button" style="z-index: 9999">Dismiss</button>
+                                    </form>
+                                </a>
+
+                                {% endfor %}
+                            </div>
+
+                            {% endif %}
+                            <div class="col-md-4 center-block"><a href="/notifications" class="btn btn-default btn-raised">View all notifications</a>
+                            </div>
+                                
+
+                    </ul>
+
+			        </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                
+
+                                <a href="/match/add">
+                                    <i class="glyphicon glyphicon-send"></i> Add match
+                                </a>
+                                <a href="/profile/{{user.username}}">
+                                    <i class="glyphicon glyphicon-user"></i> View Profile
+                                </a>
+                                <a href="/profile/edit">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit Profile
+                                </a>
+                                {% if user.admin %}
+                                <a href="/admin">
+                                    <span class="glyphicon glyphicon-fire"></span> Admin
+                                </a>
+                                {% endif %}
+                                <a href="/logout">
+                                    <span class="glyphicon glyphicon-log-out"></span> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+			    </ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+{% endblock %}
+{% block body %}{% endblock %}
+<script src="/static/jquery-2.1.4.min.js"></script>
+<script src="/static/bootstrap.min.js"></script>
+<script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
+<script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<script src="/static/material.min.js"></script>
+<script src="/static/ripples.min.js"></script>
+<script src="/static/scripts/bootstrap-notify.js"></script>
+<script type="text/javascript">
+    {% include "scripts/notifications.js" %}
+    $.material.init();
+</script>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

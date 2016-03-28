@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container" style="padding-top: 10px">
+    <div class="list-group shadow-z-2" style="width: auto; background-color: white; ">
+		{% if user.get_notifications() %}
+        {% for notification in user.get_notifications(False) %}
+        <a {% if notification.link !="" %}href="{{notification.link}}" {% endif %} class="list-group-item " style="width: auto; padding-top: 10px; padding-bottom: 10px;">
+            <div class="row-content" style="width: auto;">
+                <div class="least-content">{{notification.get_time_humanized()}}</div>
+                <h4 class="list-group-item-heading">Notification</h4>
+                <p class="list-group-item-text">{{notification.message}}</p>
+
+            </div>
+            {% if not notification.seen %}
+            <form method="POST" action="/notifications/dismiss/{{notification.id}}?return_to={{ request.path }}">
+                <button type="submit" class="btn btn-danger main-button" style="z-index: 9999">Dismiss</button>
+            </form>
+
+            {% endif %}
+        </a>
+
+
+        {% endfor %}
+		{% endif %}
+    </div>
+</div>
+{% endblock %}
